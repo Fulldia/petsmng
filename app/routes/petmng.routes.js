@@ -1,24 +1,26 @@
 module.exports = app => {
   const pets = require("../controllers/petmng.controller.js");
   const { authJwt } = require("../middleware");
+  
+  
 
   var router = require("express").Router();
 
   //  CREER UN PET
-  router.post("/pets/", [authJwt.verifyToken, authJwt.isModeratorOrAdmin], pets.create);
+  router.post("/pets/", pets.create);
 
   // RECHERCHER UN PET PAR ID
   router.get("/pets/:pet_id", [authJwt.verifyToken], pets.findOne);
 
 
   //RECUPERER TOUS LES noms de PETS
-  router.get("/pets/", [authJwt.verifyToken], pets.findAll);
+  router.get("/pets/", pets.findAll);
 
   // AFFICHE TOUS LES ANIMAUX QUI NE SONT PAS RESERVES
   router.get("/notreserved/", [authJwt.verifyToken], pets.findNotReserved);
 
   // MODIFIE UN PET
-  router.put("/pets/:pet_id", [authJwt.verifyToken, authJwt.isModeratorOrAdmin], pets.update);
+  router.put("/pets/:pet_id", pets.update);
 
   // SUPPRIMER UN PET
   router.delete("/pets/:pet_id", [authJwt.verifyToken, authJwt.isAdmin], pets.delete);

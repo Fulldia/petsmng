@@ -2,6 +2,179 @@ const express = require("express");
 const cors = require("cors");
 
 const app = express();
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUI = require('swagger-ui-express');
+
+
+
+const swaggerOptions = {
+  swaggerDefinition:{
+    info:{title:" PETMNG - API ",
+    version:"1.0.0"
+  },
+  },
+  apis:[
+    "server.js"
+]
+}
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions)
+console.log(swaggerDocs)
+
+
+
+app.use("/api-docs",swaggerUI.serve,swaggerUI.setup(swaggerDocs))
+/**
+ * @swagger
+ * /api/petmng/pets:
+ *    get:
+ *      description: get all pets
+ *      responses: 
+ *          200: 
+ *            description: Success
+ */
+
+/** 
+* @swagger
+* /api/petmng/notreserved:
+*    get:
+*      description: get all pets not reserved
+*      responses: 
+*          200: 
+*            description: Success
+*/
+
+/**
+* @swagger
+* /api/petmng/pets/{pet_id}:
+*    get:
+*      description: get pet by id
+*      parameters:
+          - in: path
+            name: pet_id
+            required: true
+       responses: 
+*          200: 
+*            description: Success
+*/
+
+
+
+/**
+ * 
+ * @swagger
+ * /api/petmng/pets:
+ *    post:
+ *      description: create new pet
+ *      parameters: 
+ *          - name: pet_name 
+ *            description: the pet's name
+ *            in: formData
+ *            required: true
+ *            type: string
+ *          - name: animal
+ *            description: animal
+ *            in: formData
+ *            required: true
+ *            type: string
+ *          - name: breed
+ *            description: breed
+ *            in: formData
+ *            required: false
+ *            type: string
+ *          - name: birthyear
+ *            description: birthyear
+ *            in: formData
+ *            required: false
+ *            type: string
+ *          - name: reserved
+ *            description: reserved ?
+ *            in: formData
+ *            required: false
+ *            type: boolean
+ *          - name: shelter
+ *            description: shelter
+ *            in: formData
+ *            required: false
+ *            type: string
+ *          - name: arrival_date
+ *            description: date of arrival
+ *            in: formData
+ *            required: false
+ *            type: date
+ *          - name: depart_date
+ *            description: date of departure
+ *            in: formData
+ *            required: false
+ *            type: date
+ *          - name: adopt_id
+ *            description: adopter
+ *            in: formData
+ *            required: false
+ *            type: string
+ *      responses: 
+ *            201:
+ *              description: Added
+ */
+
+/**
+* @swagger
+* /api/petmng/pets/{pet_id}:
+*    put:
+*      description: update pet by id
+*      parameters: 
+ *          - name: pet_name 
+ *            description: the pet's name
+ *            in: formData
+ *            required: true
+ *            type: string
+ *          - name: animal
+ *            description: animal
+ *            in: formData
+ *            required: true
+ *            type: string
+ *          - name: breed
+ *            description: breed
+ *            in: formData
+ *            required: false
+ *            type: string
+ *          - name: birthyear
+ *            description: birthyear
+ *            in: formData
+ *            required: false
+ *            type: string
+ *          - name: reserved
+ *            description: reserved ?
+ *            in: formData
+ *            required: false
+ *            type: boolean
+ *          - name: shelter
+ *            description: shelter
+ *            in: formData
+ *            required: false
+ *            type: string
+ *          - name: arrival_date
+ *            description: date of arrival
+ *            in: formData
+ *            required: false
+ *            type: date
+ *          - name: depart_date
+ *            description: date of departure
+ *            in: formData
+ *            required: false
+ *            type: date
+ *          - name: adopt_id
+ *            description: adopter
+ *            in: formData
+ *            required: false
+ *            type: string
+ *      responses: 
+ *            201:
+ *              description: Updated
+*/
+
+
+
 
 var corsOptions = {
   origin: "http://localhost:8081"
