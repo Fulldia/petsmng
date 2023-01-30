@@ -12,7 +12,10 @@
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "express": "^4.18.2",
+<<<<<<< HEAD
     "express-rate-limit": "^6.7.0",
+=======
+>>>>>>> 34f03bf259ef6d5f22c22e47eca085eaa7ac4538
     "jsonwebtoken": "^9.0.0",
     "mysql2": "^2.3.3",
     "sequelize": "^6.28.0",

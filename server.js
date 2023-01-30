@@ -1,8 +1,13 @@
 const express = require("express");
+<<<<<<< HEAD
 const rateLimit = require('express-rate-limit');
 const cors = require("cors");
 
 
+=======
+const cors = require("cors");
+
+>>>>>>> 34f03bf259ef6d5f22c22e47eca085eaa7ac4538
 const app = express();
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUI = require('swagger-ui-express');
@@ -175,6 +180,7 @@ app.use("/api-docs",swaggerUI.serve,swaggerUI.setup(swaggerDocs))
  *              description: Updated
 */
 
+<<<<<<< HEAD
 //RATE LIMITER//
 
 // Create the rate limit rule
@@ -190,6 +196,8 @@ app.use(apiRequestLimiter)
 
 
 
+=======
+>>>>>>> 34f03bf259ef6d5f22c22e47eca085eaa7ac4538
 
 
 
