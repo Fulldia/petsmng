@@ -1,13 +1,7 @@
 const express = require("express");
-<<<<<<< HEAD
 const rateLimit = require('express-rate-limit');
 const cors = require("cors");
 
-
-=======
-const cors = require("cors");
-
->>>>>>> 34f03bf259ef6d5f22c22e47eca085eaa7ac4538
 const app = express();
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUI = require('swagger-ui-express');
@@ -180,7 +174,6 @@ app.use("/api-docs",swaggerUI.serve,swaggerUI.setup(swaggerDocs))
  *              description: Updated
 */
 
-<<<<<<< HEAD
 //RATE LIMITER//
 
 // Create the rate limit rule
@@ -196,8 +189,6 @@ app.use(apiRequestLimiter)
 
 
 
-=======
->>>>>>> 34f03bf259ef6d5f22c22e47eca085eaa7ac4538
 
 
 
@@ -257,3 +248,35 @@ function initial() {
     name: "admin"
   });
 }
+
+
+//JEU DE DONNEES FACTICES - DATA FIXTURES
+const fs = require('fs');
+const Sequelize = require('sequelize');
+const { STRING } = require("sequelize");
+
+
+
+app.post('/import', (req, res) => {
+  fs.readFile('data.json', 'utf-8', (err, data) => {
+    if (err) {
+      res.status(500).send({ message: 'Error reading file' });
+      return;
+    }
+
+    const users = JSON.parse(data);
+    users.forEach(user => {
+      User.create({
+        username: user.username,
+        email: user.email
+      });
+    });
+
+    res.send({ message: 'Import successful' });
+  });
+});
+
+app.listen(3000, () => {
+  console.log('Listening on port 3000');
+});
+
