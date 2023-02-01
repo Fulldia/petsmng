@@ -216,6 +216,5 @@ sequelize.sync().then(async () => {
             console.log(`Pets insérés: ${pets.length}`);
             petId = pets[pets.length - 1].id;
 
-            
         });
 });
