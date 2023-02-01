@@ -7,7 +7,6 @@ const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUI = require('swagger-ui-express');
 
 
-
 const swaggerOptions = {
   swaggerDefinition:{
     info:{title:" PETMNG - API ",
@@ -24,7 +23,7 @@ console.log(swaggerDocs)
 
 
 
-app.use("/api-docs",swaggerUI.serve,swaggerUI.setup(swaggerDocs))
+app.use("/api/petmng/doc",swaggerUI.serve,swaggerUI.setup(swaggerDocs))
 /**
  * @swagger
  * /api/petmng/pets:
@@ -176,6 +175,9 @@ app.use("/api-docs",swaggerUI.serve,swaggerUI.setup(swaggerDocs))
 
 //RATE LIMITER//
 
+
+
+
 // Create the rate limit rule
 const apiRequestLimiter = rateLimit({
     windowMs: 1 * 60 * 1000, // 1 minute
@@ -185,10 +187,6 @@ const apiRequestLimiter = rateLimit({
 
 // Use the limit rule as an application middleware
 app.use(apiRequestLimiter)
-
-
-
-
 
 
 
@@ -249,34 +247,17 @@ function initial() {
   });
 }
 
+//IMPORTER LES DONNEES FACTICES
 
-//JEU DE DONNEES FACTICES - DATA FIXTURES
-const fs = require('fs');
-const Sequelize = require('sequelize');
-const { STRING } = require("sequelize");
+const importData = require('./app/middleware/import.js');
 
-
-
-app.post('/import', (req, res) => {
-  fs.readFile('data.json', 'utf-8', (err, data) => {
-    if (err) {
-      res.status(500).send({ message: 'Error reading file' });
-      return;
-    }
-
-    const users = JSON.parse(data);
-    users.forEach(user => {
-      User.create({
-        username: user.username,
-        email: user.email
-      });
-    });
-
-    res.send({ message: 'Import successful' });
-  });
+importData().then(() => {
+  // Code pour utiliser les données importées
+  console.log('Données importées avec succès');
+})
+.catch((error) => {
+  console.error('Erreur lors de l import des données :', error);
 });
 
-app.listen(3000, () => {
-  console.log('Listening on port 3000');
-});
+
 

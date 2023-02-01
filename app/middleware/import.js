@@ -1,79 +1,3 @@
-/*const fs = require('fs');
-const csv = require('csv-parser');
-const Sequelize = require('sequelize');
-
-const sequelize = new Sequelize('api_petmng', 'root', '123456', {
-  host: 'localhost',
-  dialect: 'mysql',
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
- },
-});
-
-const Pet = sequelize.define('pets', {
-    pet_id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
-    },
-    pet_name: {
-        type: Sequelize.STRING
-    },
-    animal: {
-        type: Sequelize.STRING
-    },
-    breed: {
-        type: Sequelize.STRING
-    },
-    birthyear: {
-        type: Sequelize.INTEGER
-    },
-    reserved: {
-        type: Sequelize.BOOLEAN
-    },
-    shelter: {
-        type: Sequelize.STRING
-    },
-    arrival_date: {
-        type: Sequelize.STRING
-    },
-    depart_date: {
-        type: Sequelize.STRING
-    },
-    image: {
-        type: Sequelize.STRING
-    },
-    adopt_id: {
-        type: Sequelize.INTEGER,
-        references: {
-            model: 'adopters',
-            key: 'adopt_id'
-        }
-    }});
-
-fs.createReadStream('data.csv')
-    .pipe(csv())
-    .on('data', (row) => {
-      Pet.create({
-        pet_id: row.pet_id,
-        pet_name: row.pet_name,
-        animal: row.animal,
-        breed: row.breed,
-        birthyear: row.birthyear,
-        reserved: row.reserved,
-        shelter: row.shelter,
-        arrival_date: row.arrival_date,
-        depart_date: row.depart_date,
-        image: row.image,
-        adopt_id: row.adopt_id
-      });
-    })
-    .on('SIGINT', () => conn.close())
-    
-  */
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = new Sequelize('api_petmng', 'root', '123456', {
     host: 'localhost',
@@ -83,6 +7,12 @@ const sequelize = new Sequelize('api_petmng', 'root', '123456', {
 const csv = require('csv-parser');
 const fs = require('fs');
 const { adopter } = require('../models');
+
+
+module.exports = importData;
+
+async function importData() {
+ 
 
 const Pet = sequelize.define('pets', {
     pet_id: {
@@ -169,7 +99,7 @@ sequelize.sync().then(async () => {
     // Lire les utilisateurs depuis le fichier CSV
     // Lire les adopters depuis le fichier CSV
 
-    fs.createReadStream('adopters.csv')
+    fs.createReadStream('app/middleware/adopters.csv')
     .pipe(csv())
     .on('data', (data) => {
         adoptersCSV.push({
@@ -193,7 +123,7 @@ sequelize.sync().then(async () => {
     });
 
 
-    fs.createReadStream('pets.csv')
+    fs.createReadStream('app/middleware/pets.csv')
         .pipe(csv())
         .on('data', (data) => {
             petsCSV.push({
@@ -218,3 +148,5 @@ sequelize.sync().then(async () => {
 
         });
 });
+
+}
