@@ -18,13 +18,13 @@ module.exports = app => {
   router.get("/pets/", pets.findAll);
 
   // AFFICHE TOUS LES ANIMAUX QUI NE SONT PAS RESERVES
-  router.get("/notreserved/", [authJwt.verifyToken], pets.findNotReserved);
+  router.get("/notreserved/", pets.findNotReserved);
 
   // MODIFIE UN PET
   router.put("/pets/:pet_id", pets.update);
 
   // SUPPRIMER UN PET
-  router.delete("/pets/:pet_id", pets.delete);
+  router.delete("/pets/:pet_id", [authJwt.verifyToken, authJwt.isAdmin], pets.delete);
 
 
 
