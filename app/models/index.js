@@ -52,13 +52,13 @@ db.user.hasOne(db.refreshToken, {
 
 //un pet peut avoir plusieurs adopteurs
 db.pet.belongsToMany(db.adopter,{
-    through: "pet_adopter", //table de lien
+    through: "adoptions", //table de lien
     foreignKey: "pet_id",
     otherKey: "adopt_id"
 })
 //un adopteur peut avoir plusieurs pet
 db.adopter.belongsToMany(db.pet, { 
-    through: "pet_adopter",
+    through: "adoptions",
     foreignKey: "adopt_id",
     otherKey: "pet_id"
 });

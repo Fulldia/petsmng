@@ -32,13 +32,6 @@ module.exports = (sequelize, Sequelize) => {
         },
         image: {
             type: Sequelize.STRING
-        },
-        adopt_id: {
-            type: Sequelize.INTEGER,
-            references: {
-                model: 'adopters',
-                key: 'adopt_id'
-            }
         }
     });
     return Pet;

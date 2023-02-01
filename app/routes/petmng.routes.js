@@ -1,5 +1,6 @@
 module.exports = app => {
   const pets = require("../controllers/petmng.controller.js");
+  const adopters = require("../controllers/adopter.controller.js");
   const { authJwt } = require("../middleware");
   
   
@@ -23,29 +24,26 @@ module.exports = app => {
   router.put("/pets/:pet_id", pets.update);
 
   // SUPPRIMER UN PET
-  router.delete("/pets/:pet_id", [authJwt.verifyToken, authJwt.isAdmin], pets.delete);
+  router.delete("/pets/:pet_id", pets.delete);
 
-/*
+
 
   // CREER UN ADOPTANT
-  router.post("/adopters/", pets.createOneAdopter);
+  router.post("/adopters/", adopters.create);
 
   // RECHERCHER UN ADOPTER PAR ID
-  router.get("/adopters/:adopt_id", pets.findOneAdopter);
+  router.get("/adopters/:adopt_id", adopters.findOne);
 
   // LISTE TOUS LES NOMS DES ADOPTANTS
-  router.get("/adopters/", pets.findAllAdopter);
+  router.get("/adopters/", adopters.findAll);
 
   //MODIFIE UN ADOPTANT
-  router.put("/adopters/:adopt_id", pets.updateAdopter);
+  router.put("/adopters/:adopt_id", adopters.update);
 
   // SUPPRIMER UN ADOPTANT
-  router.delete("/adopters/:adopt_id", pets.deleteAdopter);
+  router.delete("/adopters/:adopt_id", adopters.delete);
 
 
-  // LISTE TOUS LES NOMS DE REFUGES
-  router.get("/shelters/", pets.findShelters);
 
-*/
   app.use('/api/petmng', router);
 };

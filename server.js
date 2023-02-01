@@ -50,10 +50,10 @@ app.use("/api/petmng/doc",swaggerUI.serve,swaggerUI.setup(swaggerDocs))
 *    get:
 *      description: get pet by id
 *      parameters:
-          - in: path
-            name: pet_id
-            required: true
-       responses: 
+*          - in: path
+*            name: pet_id
+*            required: true
+*      responses: 
 *          200: 
 *            description: Success
 */
@@ -173,6 +173,12 @@ app.use("/api/petmng/doc",swaggerUI.serve,swaggerUI.setup(swaggerDocs))
  *              description: Updated
 */
 
+
+
+
+
+
+
 //RATE LIMITER//
 
 
@@ -181,7 +187,7 @@ app.use("/api/petmng/doc",swaggerUI.serve,swaggerUI.setup(swaggerDocs))
 // Create the rate limit rule
 const apiRequestLimiter = rateLimit({
     windowMs: 1 * 60 * 1000, // 1 minute
-    max: 1, // limit each IP to 2 requests per windowMs
+    max: 5, // limit each IP to 2 requests per windowMs
     message: "Your limit exceeded"
 })
 
@@ -246,18 +252,6 @@ function initial() {
     name: "admin"
   });
 }
-
-//IMPORTER LES DONNEES FACTICES
-
-const importData = require('./app/middleware/import.js');
-
-importData().then(() => {
-  // Code pour utiliser les données importées
-  console.log('Données importées avec succès');
-})
-.catch((error) => {
-  console.error('Erreur lors de l import des données :', error);
-});
 
 
 

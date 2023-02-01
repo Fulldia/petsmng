@@ -1,18 +1,14 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('api_petmng', 'root', '123456', {
-    host: 'localhost',
-    dialect: 'mysql',
-});
-
 const csv = require('csv-parser');
 const fs = require('fs');
 const { adopter } = require('../models');
 
+const { Sequelize, DataTypes } = require('sequelize');
 
-module.exports = importData;
 
-async function importData() {
- 
+const sequelize = new Sequelize('api_petmng', 'root', '123456', {
+    host: 'localhost',
+    dialect: 'mysql',
+});
 
 const Pet = sequelize.define('pets', {
     pet_id: {
@@ -88,8 +84,7 @@ const Adopter = sequelize.define('adopters', {
     }
 });
 
-// définir la relation entre les tables Pets et Adopters
-Pet.belongsTo(Adopter, { foreignKey: 'adopt_id', as: 'adopters' });
+
 
 sequelize.sync().then(async () => {
     const petsCSV = [];
@@ -149,4 +144,4 @@ sequelize.sync().then(async () => {
         });
 });
 
-}
+

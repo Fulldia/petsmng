@@ -3,6 +3,7 @@ module.exports = (sequelize, Sequelize) => {
     const Adopter = sequelize.define("adopters", {
       adopt_id: {
         type: Sequelize.INTEGER,
+        autoIncrement: true,
         primaryKey: true
       },
       lastname: {

@@ -81,7 +81,7 @@ exports.update = (req, res) => {
   const id = req.params.pet_id;
 
   Pet.update(req.body, {
-    where: { id: id }
+    where: { pet_id: id }
   })
     .then(num => {
       if (num == 1) {
@@ -106,7 +106,7 @@ exports.delete = (req, res) => {
   const id = req.params.pet_id;
 
   Pet.destroy({
-    where: { id: id }
+    where: { pet_id: id }
   })
     .then(num => {
       if (num == 1) {
