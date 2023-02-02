@@ -3,9 +3,7 @@
 You can find API Swagger here :
 http://localhost:3690/api/petmng/doc
 
-## Install
 
-    bundle install
 
 ## Run the app
 
